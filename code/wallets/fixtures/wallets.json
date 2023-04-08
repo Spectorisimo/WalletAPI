@@ -1,0 +1,72 @@
+[
+  {
+    "model": "wallets.wallet",
+    "pk": 15,
+    "fields": {
+      "wallet_number": "8129423150",
+      "user": "af58bf95-cbd8-49e3-afea-1c35cf83b3a4",
+      "name": "Мой кошелёк",
+      "amount": "4000.00",
+      "amount_currency": "KZT",
+      "is_active": true,
+      "created_at": "2023-04-03T19:36:52.016Z",
+      "updated_at": "2023-04-03T19:36:52.016Z"
+    }
+  },
+  {
+    "model": "wallets.wallet",
+    "pk": 16,
+    "fields": {
+      "wallet_number": "0549425479",
+      "user": "d6b8384f-7e89-42c2-a5e5-a0fe0fcd9be6",
+      "name": "Мой кошелёк",
+      "amount": "50.00",
+      "amount_currency": "KZT",
+      "is_active": true,
+      "created_at": "2023-04-03T19:36:58.137Z",
+      "updated_at": "2023-04-04T13:17:20.719Z"
+    }
+  },
+  {
+    "model": "wallets.wallet",
+    "pk": 17,
+    "fields": {
+      "wallet_number": "0706805809",
+      "user": "7eff2c55-7a88-49c9-b99a-2e4176d0522a",
+      "name": "Мой кошелёк",
+      "amount": "4000.00",
+      "amount_currency": "USD",
+      "is_active": true,
+      "created_at": "2023-04-03T19:41:32.428Z",
+      "updated_at": "2023-04-03T19:41:32.428Z"
+    }
+  },
+  {
+    "model": "wallets.wallet",
+    "pk": 18,
+    "fields": {
+      "wallet_number": "4905790130",
+      "user": "bcd36cf4-d9df-4ee7-8a29-3dc5106f9752",
+      "name": "Мой кошелёк",
+      "amount": "200.00",
+      "amount_currency": "EUR",
+      "is_active": false,
+      "created_at": "2023-04-03T19:41:46.876Z",
+      "updated_at": "2023-04-03T19:41:46.876Z"
+    }
+  },
+  {
+    "model": "wallets.wallet",
+    "pk": 19,
+    "fields": {
+      "wallet_number": "4905122895",
+      "user": "af58bf95-cbd8-49e3-afea-1c35cf83b3a4",
+      "name": "Мой кошелёк",
+      "amount": "4000.00",
+      "amount_currency": "USD",
+      "is_active": true,
+      "created_at": "2023-04-04T13:26:21.186Z",
+      "updated_at": "2023-04-04T13:26:21.186Z"
+    }
+  }
+]

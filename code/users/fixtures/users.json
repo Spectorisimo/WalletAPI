@@ -1,0 +1,154 @@
+[
+  {
+    "model": "users.customuser",
+    "pk": "16b06260-c4c6-461a-bb91-a31b8d221469",
+    "fields": {
+      "password": "pbkdf2_sha256$390000$8OrZ5iMr6nDlX1RMVkpmrc$I10404Os3wCU0ZNpXYHFzgGGN5UgTE1RBowzj5zcToY=",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-03-31T18:17:42.160Z",
+      "email": "kek@gmail.com",
+      "phone_number": "+77077107874",
+      "profile_image": "",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.customuser",
+    "pk": "7eff2c55-7a88-49c9-b99a-2e4176d0522a",
+    "fields": {
+      "password": "pbkdf2_sha256$390000$wKHdBhByuHMXjVH0QJIxan$e5tlu628EZQ9PkOa1TBXaSMI8gKB+3Ks993Lev0ifhU=",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-03-29T16:18:07.192Z",
+      "email": "a.dream306@gmail.com",
+      "phone_number": "+77057462010",
+      "profile_image": "",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.customuser",
+    "pk": "a3be44ff-b303-4c4f-9c01-0d936f8fae80",
+    "fields": {
+      "password": "pbkdf2_sha256$390000$t3qhvKozNvtGphP8AkHcZ1$NFDaTUy3U1U0gVZDQaY3n3EmdRfOK1xhg/fYEalxsBE=",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-03-30T05:42:38.157Z",
+      "email": "a.dream30@gmail.com",
+      "phone_number": "+77057462000",
+      "profile_image": "",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.customuser",
+    "pk": "af58bf95-cbd8-49e3-afea-1c35cf83b3a4",
+    "fields": {
+      "password": "pbkdf2_sha256$390000$wQACM3ajGHZ5FFNlKZorHs$yuPi4vnZdUCxoGQvmpk5MJxHL9BT00lHA/sxsy/+zi8=",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "Daniyar",
+      "last_name": "Akhmetov",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-03-29T16:01:02.570Z",
+      "email": "a.dream1337@gmail.com",
+      "phone_number": "+77057467874",
+      "profile_image": "",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.customuser",
+    "pk": "bcd36cf4-d9df-4ee7-8a29-3dc5106f9752",
+    "fields": {
+      "password": "pbkdf2_sha256$390000$EAtlnqVbqKFTN7PXkuTt6y$d/jbeoG3WQcnAmV5D7h64ThxvmK0REQlDYrORFPrKWc=",
+      "last_login": "2023-04-01T13:48:51Z",
+      "is_superuser": true,
+      "first_name": "",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2023-03-29T16:02:26Z",
+      "email": "admin@gmail.com",
+      "phone_number": "+77057467877",
+      "profile_image": "",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.customuser",
+    "pk": "cbf00d52-0230-417d-b29f-a4690f2aa50c",
+    "fields": {
+      "password": "pbkdf2_sha256$390000$aHZSW4FqaXRNEzTxak6mU4$nVNyP+UZuraFRnl4TjCsn4YQuAs9h4oPeQAJjGc9GH8=",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-03-31T18:13:25.162Z",
+      "email": "admin228@gmail.com",
+      "phone_number": "+77017407874",
+      "profile_image": "",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.customuser",
+    "pk": "d6b8384f-7e89-42c2-a5e5-a0fe0fcd9be6",
+    "fields": {
+      "password": "pbkdf2_sha256$390000$Irn31oOVF2fz0hBlkyWD6e$gtUUyJkwjLYsAhfETUrcHccTZwZqocJCGIiQu72615s=",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-03-30T16:35:46Z",
+      "email": "testcreating@gmail.com",
+      "phone_number": "+77087467874",
+      "profile_image": "users/2023/04/01/830a556023aff285cfb31faf74088380.jpeg",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.customuser",
+    "pk": "eecb4561-f148-41db-8546-61dc0f319aad",
+    "fields": {
+      "password": "pbkdf2_sha256$390000$YWV5FNypP2KKWgKo77SoTb$jfqFVftdoHIQIpt6y4Zf8oICSBFsKSDR0RxomCSGmfs=",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-03-30T16:31:47Z",
+      "email": "testcreating1@gmail.com",
+      "phone_number": "+77027467874",
+      "profile_image": "users/2023/04/01/19343f3365bae42175d9692e110d6f8a.png",
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]
