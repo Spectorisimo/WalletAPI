@@ -144,6 +144,7 @@ class UserServicesInterface(Protocol):
         Raises:
         None
         """
+
         ...
 
 

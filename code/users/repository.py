@@ -81,6 +81,7 @@ class UserRepositoryV1:
         return user
 
     def get_user(self, data: OrderedDict) -> models.CustomUser:
+
         user = get_object_or_404(models.CustomUser, phone_number=data['phone_number'])
 
         if not user.check_password(data['password']):

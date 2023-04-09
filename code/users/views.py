@@ -1,7 +1,8 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, status
 from rest_framework.exceptions import NotAuthenticated
 from rest_framework.response import Response
-from . import serializers, services
+from . import serializers, services, models
 from utils import mixins
 from drf_yasg.utils import swagger_auto_schema
 
@@ -59,7 +60,9 @@ class UserViewSet(viewsets.ViewSet, mixins.ActionPermissionMixin):
         if not request.user.is_authenticated:
             raise NotAuthenticated()
 
-        serializer = serializers.UserSerializer(request.user)
+        queryset = models.CustomUser.objects.prefetch_related('wallets')
+        user = get_object_or_404(queryset, pk=request.user.pk)
+        serializer = serializers.UserSerializer(user)
         return Response(serializer.data)
 
     @swagger_auto_schema(request_body=serializers.UpdatePersonalInfoSerializer)

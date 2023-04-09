@@ -1,0 +1,33 @@
+version: "3"
+services:
+  wallet-project:
+    container_name: wallet-project
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - wallet-project-db
+    volumes:
+      - wallet-project-media:/media
+      - wallet-project-static:/static
+    command: python /app/code/manage.py runserver 0.0.0.0:8000
+    expose:
+      - 8000
+    ports:
+      - "8000:8000"
+
+  wallet-project-db:
+    container_name: wallet-project-db
+    image: postgres:14
+    environment:
+      POSTGRES_PASSWORD: "passw0rd"
+    volumes:
+      - wallet-project-db-data:/var/lib/postgresql/data
+    ports:
+      - "6432:5432"
+
+volumes:
+  wallet-project-db-data: {}
+  wallet-project-media: {}
+  wallet-project-static: {}

@@ -13,27 +13,27 @@ class WalletTransactionServicesInterface(Protocol):
     @staticmethod
     def transfer(pk, data: OrderedDict) -> None:
         """
-            Transfer an amount of money from one wallet to another.
+        Transfer an amount of money from one wallet to another.
 
-    Args:
-        pk (int): The primary key of the wallet sending the money.
-        data (OrderedDict): A dictionary containing data about the transaction.
-            The dictionary must contain the following keys:
-            - wallet_number (str): The wallet number of the wallet receiving the money.
-            - amount (Decimal): The amount of money to transfer.
+        Args:
+            pk (int): The primary key of the wallet sending the money.
+            data (OrderedDict): A dictionary containing data about the transaction.
+                The dictionary must contain the following keys:
+                - wallet_number (str): The wallet number of the wallet receiving the money.
+                - amount (Decimal): The amount of money to transfer.
 
-    Raises:
-        ValidationError: If the sender wallet does not have enough balance to make the transfer,
-            or if the sender and receiver wallets are the same,or sender/receiver wallet is not active.
+        Raises:
+            ValidationError: If the sender wallet does not have enough balance to make the transfer,
+                or if the sender and receiver wallets are the same,or sender/receiver wallet is not active.
 
-    Returns:
-        None.
+        Returns:
+            None.
 
-    Note:
-        This method subtracts the transferred amount from the sender wallet's balance, and adds it
-        to the receiver wallet's balance. If the currencies of the sender and receiver wallets are
-        different, the amount is converted using the currency conversion service before the transfer.
-        Finally, a transaction object is created to record the transaction details.
+        Note:
+            This method subtracts the transferred amount from the sender wallet's balance, and adds it
+            to the receiver wallet's balance. If the currencies of the sender and receiver wallets are
+            different, the amount is converted using the currency conversion service before the transfer.
+            Finally, a transaction object is created to record the transaction details.
         """
         ...
 
