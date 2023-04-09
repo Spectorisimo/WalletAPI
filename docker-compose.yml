@@ -8,6 +8,7 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - wallet-project-db
+      - wallet-project-redis
     volumes:
       - wallet-project-media:/media
       - wallet-project-static:/static
@@ -26,6 +27,13 @@ services:
       - wallet-project-db-data:/var/lib/postgresql/data
     ports:
       - "6432:5432"
+
+  wallet-project-redis:
+    container_name: wallet-project-redis
+    image: redis:7
+    ports:
+      - "7739:6739"
+
 
 volumes:
   wallet-project-db-data: {}
