@@ -114,11 +114,7 @@ class WalletTransactionServicesV1:
         wallet_receiver = get_object_or_404(wallets_models.Wallet, wallet_number=data.pop('wallet_number'))
         amount = data['amount']
 
-        if not self.is_valid(wallet_sender, amount):
-            raise ValidationError({'error': 'Wallet is blocked, or amount is less then zero'})
-
-        if not self.is_enough_balance(wallet_sender, amount):
-            raise ValidationError({'error': 'Insufficient balance'})
+        self.is_wallet_valid(wallet_sender, data['amount'], choices.WalletTransactionChoices.transfer)
 
         if wallet_sender == wallet_receiver:
             raise ValidationError({'error': 'Sender and receiver wallets are the same'})
@@ -133,51 +129,64 @@ class WalletTransactionServicesV1:
             wallet_receiver.amount += amount
             wallet_sender.save()
             wallet_receiver.save()
-            data['sender'] = wallet_sender
-            data['receiver'] = wallet_receiver
-            data['amount_currency'] = wallet_sender.amount_currency
-            data['operation_type'] = choices.WalletTransactionChoices.transfer
-            self.transaction_repos.create_transaction(data)
+
+            transaction_data = {
+                'sender': wallet_sender,
+                'receiver': wallet_receiver,
+                'amount': data['amount'],
+                'amount_currency': wallet_sender.amount_currency,
+                'operation_type': choices.WalletTransactionChoices.transfer
+            }
+
+            self.transaction_repos.create_transaction(transaction_data)
 
     def deposit(self, pk: int, data: OrderedDict) -> None:
         wallet_receiver = get_object_or_404(wallets_models.Wallet, pk=pk)
 
-        if not self.is_valid(wallet_receiver, data['amount']):
-            raise ValidationError({'error': 'Wallet is blocked, or amount is less then zero'})
+        self.is_wallet_valid(wallet_receiver, data['amount'], choices.WalletTransactionChoices.deposit)
 
         with transaction.atomic():
             wallet_receiver.amount += data['amount']
             wallet_receiver.save()
-            data['sender'] = None
-            data['receiver'] = wallet_receiver
-            data['amount_currency'] = wallet_receiver.amount_currency
-            data['operation_type'] = choices.WalletTransactionChoices.deposit
-            self.transaction_repos.create_transaction(data)
+
+            transaction_data = {
+                'sender': None,
+                'receiver': wallet_receiver,
+                'amount': data['amount'],
+                'amount_currency': wallet_receiver.amount_currency,
+                'operation_type': choices.WalletTransactionChoices.deposit
+            }
+
+            self.transaction_repos.create_transaction(transaction_data)
 
     def withdraw(self, pk: int, data: OrderedDict) -> None:
         wallet_sender = get_object_or_404(wallets_models.Wallet, pk=pk)
-        if not self.is_valid(wallet_sender, data['amount']):
-            raise ValidationError({'error': 'Wallet is blocked, or amount is less then zero'})
 
-        if not self.is_enough_balance(wallet_sender, data['amount']):
-            raise ValidationError({'error': 'Insufficient balance'})
+        self.is_wallet_valid(wallet_sender, data['amount'], choices.WalletTransactionChoices.withdraw)
 
         with transaction.atomic():
             wallet_sender.amount -= data['amount']
             wallet_sender.save()
-            data['sender'] = wallet_sender
-            data['receiver'] = None
-            data['amount_currency'] = wallet_sender.amount_currency
-            data['operation_type'] = choices.WalletTransactionChoices.withdraw
-            self.transaction_repos.create_transaction(data)
+
+            transaction_data = {
+                'sender': wallet_sender,
+                'receiver': None,
+                'amount': data['amount'],
+                'amount_currency': wallet_sender.amount_currency,
+                'operation_type': choices.WalletTransactionChoices.withdraw
+            }
+
+            self.transaction_repos.create_transaction(transaction_data)
 
     def get_transactions(self, pk: int) -> QuerySet[models.WalletTransaction]:
         return self.transaction_repos.get_transactions(pk)
 
     @staticmethod
-    def is_enough_balance(wallet: wallets_models.Wallet, amount):
-        return wallet.amount >= amount
-
-    @staticmethod
-    def is_valid(wallet: wallets_models.Wallet, amount):
-        return amount > 0 and wallet.is_active
+    def is_wallet_valid(wallet: wallets_models.Wallet, amount, transaction_type):
+        if amount < 0:
+            raise ValidationError({'error': 'Operation with negative amount'})
+        if not wallet.is_active:
+            raise ValidationError({'error': 'Your wallet is blocked'})
+        if amount > wallet.amount and transaction_type is not choices.WalletTransactionChoices.deposit:
+            raise ValidationError({'error': 'Not enough balance'})
+        return True
