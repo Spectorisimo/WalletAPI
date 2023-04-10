@@ -6,6 +6,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    env_file:
+      - .env
     depends_on:
       - wallet-project-db
       - wallet-project-redis
@@ -22,7 +24,9 @@ services:
     container_name: wallet-project-db
     image: postgres:14
     environment:
-      POSTGRES_PASSWORD: "passw0rd"
+      POSTGRES_DB: DB_NAME
+      POSTGRES_USER: DB_USER
+      POSTGRES_PASSWORD: DB_PASSWORD
     volumes:
       - wallet-project-db-data:/var/lib/postgresql/data
     ports:
@@ -36,6 +40,6 @@ services:
 
 
 volumes:
-  wallet-project-db-data: {}
-  wallet-project-media: {}
-  wallet-project-static: {}
+  wallet-project-db-data: { }
+  wallet-project-media: { }
+  wallet-project-static: { }

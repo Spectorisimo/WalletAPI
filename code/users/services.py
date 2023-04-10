@@ -1,11 +1,13 @@
 import random
 import uuid
 
+from django.conf import settings
 from . import repository
 from django.core.cache import cache
 from rest_framework.exceptions import ValidationError
 from typing import Protocol, OrderedDict
 from rest_framework_simplejwt import tokens
+from django.core.mail import send_mail
 
 
 class UserServicesInterface(Protocol):
@@ -168,7 +170,7 @@ class UserServicesV1:
             raise ValidationError
 
         user = self.user_repo.create_user(user_data)
-        self._send_mail(user.email)
+        self._send_registration_mail(user.email)
         return True
 
     def update_password(self, data: OrderedDict) -> dict:
@@ -214,8 +216,13 @@ class UserServicesV1:
         return session_id
 
     @staticmethod
-    def _send_mail(email: str) -> None:
-        print(f'email has been sent to {email}')
+    def _send_registration_mail(email: str) -> None:
+        subject = "Registration"
+        message = "Thanks for registration in our app"
+        send_mail(subject=subject,
+                  message=message,
+                  from_email=settings.EMAIL_HOST_USER,
+                  recipient_list=[email, ])
 
     @staticmethod
     def _send_sms(phone_number: str, code: str) -> None:
