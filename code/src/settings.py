@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 from datetime import timedelta
+
+from celery.schedules import crontab
 from dotenv import load_dotenv
 from django.conf import settings
 
@@ -175,6 +177,21 @@ CACHES = {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
     }
+}
+
+# CELERY_BROKER_URL = "redis://127.0.0.1:6379"
+CELERY_BROKER_URL = 'redis://wallet-project-redis:6379'
+CELERY_RESULT_BACKEND = 'redis://wallet-project-redis:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_ALWAYS_EAGER = True
+
+CELERY_BEAT_SCHEDULE = {
+    'charge-monthly-fees-every-day': {
+        'task': 'wallets.tasks.charge_monthly_fees',
+        'schedule': timedelta(days=1),
+    },
 }
 
 SIMPLE_JWT = {

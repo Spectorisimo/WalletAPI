@@ -1,10 +1,17 @@
+from django.db import transaction
+
 import users.models
-from typing import Protocol
+from typing import Protocol, OrderedDict
 from django.db.models import QuerySet
 from . import models
 from . import repository
 from py_currency_converter import convert
 from decimal import Decimal
+from django.utils import timezone
+from datetime import timedelta
+from . import choices
+from payments import repository as payments_repository
+from payments import choices as payments_choices
 
 
 class WalletServicesInterface(Protocol):
@@ -25,12 +32,24 @@ class WalletServicesInterface(Protocol):
         """
         ...
 
+    @staticmethod
+    def create_wallet(self, data: OrderedDict) -> None:
+        ...
+
+    @staticmethod
+    def charge_fee(wallet: models.Wallet, fee: models.WalletMonthlyFee) -> None:
+        ...
+
 
 class WalletServicesV1:
     wallet_repo: repository.WalletRepositoryInterface = repository.WalletRepositoryV1()
+    payments_repo: payments_repository.WalletTransactionRepositoryInterface = payments_repository.WalletTransactionRepositoryV1()
 
     def get_wallets(self, user: users.models.CustomUser) -> QuerySet[models.Wallet]:
         return self.wallet_repo.get_wallets(user)
+
+    def create_wallet(self, data: OrderedDict) -> None:
+        self.wallet_repo.create_wallet(data)
 
     @staticmethod
     def currency_converter(first_currency: str, second_currency: str, amount: Decimal) -> Decimal:
@@ -47,3 +66,32 @@ class WalletServicesV1:
                 return round(Decimal((convert('EUR', amount=float(amount), to=['USD', ])['USD'])), 2)
             case 'EUR', 'KZT':
                 return round(Decimal((convert('EUR', amount=float(amount), to=['KZT', ])['KZT'])), 2)
+
+    @staticmethod
+    def charge_fee(wallet: models.Wallet, fee: models.WalletMonthlyFee) -> None:
+        amount = fee.amount
+        if wallet.amount_currency != 'KZT':
+            amount = WalletServicesV1.currency_converter('KZT', wallet.amount_currency, fee.amount)
+        with transaction.atomic():
+
+            if wallet.amount >= amount:
+
+                wallet.amount -= amount
+                wallet.is_active = True
+                wallet.save()
+
+                wallet.fee.next_charge_date = timezone.now() + timedelta(days=30)
+                wallet.fee.save()
+
+                transaction_data = {
+                    'sender': wallet,
+                    'receiver': None,
+                    'amount': amount,
+                    'amount_currency': wallet.amount_currency,
+                    'operation_type': payments_choices.WalletTransactionChoices.fee
+                }
+                WalletServicesV1.payments_repo.create_transaction(transaction_data)
+
+            else:
+                wallet.is_active = False
+                wallet.save()

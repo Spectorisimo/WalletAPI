@@ -130,6 +130,9 @@ class WalletTransactionServicesV1:
             wallet_sender.save()
             wallet_receiver.save()
 
+            if not wallet_receiver.is_active:
+                wallet_services.WalletServicesV1.charge_fee(wallet_receiver, wallet_receiver.fee)
+
             transaction_data = {
                 'sender': wallet_sender,
                 'receiver': wallet_receiver,
@@ -148,6 +151,9 @@ class WalletTransactionServicesV1:
         with transaction.atomic():
             wallet_receiver.amount += data['amount']
             wallet_receiver.save()
+
+            if not wallet_receiver.is_active:
+                wallet_services.WalletServicesV1.charge_fee(wallet_receiver, wallet_receiver.fee)
 
             transaction_data = {
                 'sender': None,
@@ -185,7 +191,7 @@ class WalletTransactionServicesV1:
     def is_wallet_valid(wallet: wallets_models.Wallet, amount, transaction_type):
         if amount < 0:
             raise ValidationError({'error': 'Operation with negative amount'})
-        if not wallet.is_active:
+        if not wallet.is_active and transaction_type is not choices.WalletTransactionChoices.deposit:
             raise ValidationError({'error': 'Your wallet is blocked'})
         if amount > wallet.amount and transaction_type is not choices.WalletTransactionChoices.deposit:
             raise ValidationError({'error': 'Not enough balance'})

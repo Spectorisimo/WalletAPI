@@ -19,4 +19,4 @@ class CreateWalletSerializer(serializers.ModelSerializer):
 class UpdateWalletSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Wallet
-        fields = ('is_active', 'name')
+        fields = ('name',)

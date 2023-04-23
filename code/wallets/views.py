@@ -21,9 +21,17 @@ class WalletViewSet(mixins.ActionSerializerMixin, viewsets.ModelViewSet):
     def get_queryset(self):
         return self.wallet_services.get_wallets(user=self.request.user)
 
-    def create(self, request, *args, **kwargs):
-        try:
-            return super().create(request, *args, **kwargs)
-        except ValidationError:
-            return Response(data={"error": "User already have the wallet with this currency"},
-                            status=status.HTTP_400_BAD_REQUEST)
+    # def create(self, request, *args, **kwargs):
+    #     try:
+    #         super().create(request, *args, **kwargs)
+    #     except ValidationError:
+    #         return Response(data={"error": "User already have the wallet with this currency"},
+    #                         status=status.HTTP_400_BAD_REQUEST)
+
+    def create(self, request):
+        serializer = serializers.CreateWalletSerializer(data=request.data, context={'request': request})
+        serializer.is_valid(raise_exception=True)
+
+        self.wallet_services.create_wallet(serializer.validated_data)
+
+        return Response({'message': 'Wallet has been successfully created'}, status=status.HTTP_201_CREATED)

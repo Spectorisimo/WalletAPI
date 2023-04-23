@@ -1,0 +1,47 @@
+[
+  {
+    "model": "wallets.walletmonthlyfee",
+    "pk": 7,
+    "fields": {
+      "wallet": 15,
+      "amount": "200.00",
+      "next_charge_date": "2023-04-19T18:21:45Z"
+    }
+  },
+  {
+    "model": "wallets.walletmonthlyfee",
+    "pk": 8,
+    "fields": {
+      "wallet": 16,
+      "amount": "200.00",
+      "next_charge_date": "2023-04-19T18:21:56Z"
+    }
+  },
+  {
+    "model": "wallets.walletmonthlyfee",
+    "pk": 9,
+    "fields": {
+      "wallet": 17,
+      "amount": "200.00",
+      "next_charge_date": "2023-04-19T18:22:02Z"
+    }
+  },
+  {
+    "model": "wallets.walletmonthlyfee",
+    "pk": 10,
+    "fields": {
+      "wallet": 18,
+      "amount": "200.00",
+      "next_charge_date": "2023-04-19T18:22:10Z"
+    }
+  },
+  {
+    "model": "wallets.walletmonthlyfee",
+    "pk": 11,
+    "fields": {
+      "wallet": 19,
+      "amount": "200.00",
+      "next_charge_date": "2023-04-19T18:22:18Z"
+    }
+  }
+]

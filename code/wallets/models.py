@@ -1,6 +1,7 @@
 from django.db import models
 from users import models as users_models
 from . import choices
+from datetime import datetime, timedelta
 import random
 
 
@@ -36,4 +37,14 @@ class Wallet(models.Model):
     class Meta:
         unique_together = ('user', 'amount_currency')
 
+    def __str__(self):
+        return f'Wallet {self.amount_currency} - {self.user}'
 
+
+class WalletMonthlyFee(models.Model):
+    wallet = models.OneToOneField(Wallet, on_delete=models.CASCADE, related_name="fee")
+    amount = models.DecimalField(max_digits=14, decimal_places=2, default=200, editable=False)
+    next_charge_date = models.DateTimeField()
+
+    def __str__(self):
+        return f'fee for {self.wallet}'

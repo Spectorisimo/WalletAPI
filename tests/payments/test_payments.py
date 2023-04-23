@@ -9,7 +9,7 @@ class WalletTransactionsViewSetTest:
 
     @pytest.fixture(autouse=True)
     def load_data(self, load_fixtures):
-        load_fixtures('users.json', 'wallets.json')
+        load_fixtures('users.json', 'wallets.json', 'fees.json')
 
     @pytest.mark.parametrize('case,user_id,wallet_id,status_code', (
             (1, "af58bf95-cbd8-49e3-afea-1c35cf83b3a4", 15, status.HTTP_200_OK),  # Correct case

@@ -1,4 +1,4 @@
-version: "3"
+version: "3.9"
 services:
   wallet-project:
     container_name: wallet-project
@@ -37,6 +37,30 @@ services:
     image: redis:7
     ports:
       - "7739:6739"
+
+
+  wallet-project-celery:
+    container_name: wallet-project-celery
+    build: .
+    command: celery -A src worker --loglevel=INFO
+    volumes:
+      - ./code/src:/app/code/src
+    depends_on:
+      - wallet-project
+    environment:
+      PYTHONPATH: /app/code
+
+  wallet-project-celery-beat:
+    container_name: wallet-project-celery-beat
+    build: .
+    command: celery -A src beat -l INFO
+    volumes:
+      - ./code/src:/app/code/src
+    depends_on:
+      - wallet-project
+    environment:
+      PYTHONPATH: /app/code
+
 
 
 volumes:

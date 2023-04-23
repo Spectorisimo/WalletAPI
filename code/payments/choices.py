@@ -5,3 +5,4 @@ class WalletTransactionChoices(TextChoices):
     deposit = 'DEPOSIT'
     transfer = 'TRANSFER'
     withdraw = 'WITHDRAW'
+    fee = 'FEE'
