@@ -1,9 +1,18 @@
 # Payment system (Pet-project)
 ![coverage-93%-green](https://github.com/Spectorisimo/WalletAPI/assets/99352497/8214cafc-345d-4f40-bf1e-e91e5799ae76)
 # Description
-I developed a RESTful API for a payment system, which implemented the ability to register a user, authenticate with JWT tokens, create electronic wallets with different types of currencies, transactions between user wallets, functionality in the form of charging a monthly commission with each user wallet.
+I've developed an API for an electronic payment system (P2P transfers through users' electronic wallets) that allows users to make payments.
+I used JWT tokens for user uthentication, which provides a high level of security and data privacy protection. This allows users to securely use the payment system while protecting their personal data and funds.
+In addition, I used a clean architecture to break the code into separate layers and make it easier to read and maintain. This allows you to speed up the development process and ensure easy scalability of the project in the future.
 # ER Model
 ![image](https://github.com/Spectorisimo/WalletAPI/assets/99352497/72b47895-0a6f-4cf6-a7f0-2d01a723b4ec)
+# Features
+- User registration.
+- User authentication and authorization.
+- Update information about user.
+- Creation of wallets. You can create up to three wallets (One for each type of currency).
+- Operations with wallets (deposit, withdrawal, transfer).When transferring funds between wallets with different types of currencies, funds are automatically transferred from the sender's currency to the recipient's currency, the exchange rate is taken from [here](https://www.exchangerate-api.com/).
+- Automatic collection of fees from the wallet every month (200 KZT).
 # API
 
 ### /users/
@@ -24,6 +33,25 @@ Get information about user
 | ---- | ----------- |
 | 200 | Information about user |
 
+### /users/verify/
+
+#### POST
+##### Description:
+
+Start the user creation process
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ---- |
+| data | body |  | Yes | [VerifyUser](#VerifyUser) |
+
+##### Responses
+
+| Code | Description | Schema |
+| ---- | ----------- | ------ |
+| 201 | Return session id and sends verification code | [VerifyUser](#VerifyUser) |
+
 ### /users/create/
 
 #### POST
@@ -43,25 +71,6 @@ Finishes the user creation process
 | ---- | ----------- | ------ |
 | 201 | User successfully created | [CreateUser](#CreateUser) |
 
-### /users/password/update/
-
-#### POST
-##### Description:
-
-Finishes the user password update process
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ---- |
-| data | body |  | Yes | [UpdatePassword](#UpdatePassword) |
-
-##### Responses
-
-| Code | Description | Schema |
-| ---- | ----------- | ------ |
-| 201 | Password has been successfully updated | [UpdatePassword](#UpdatePassword) |
-
 ### /users/password/verify/
 
 #### PATCH
@@ -80,6 +89,25 @@ Starts the user password update process
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
 | 200 | Returns session id and sends verification code | [VerifyUser](#VerifyUser) |
+
+### /users/password/update/
+
+#### POST
+##### Description:
+
+Finishes the user password update process
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ---- |
+| data | body |  | Yes | [UpdatePassword](#UpdatePassword) |
+
+##### Responses
+
+| Code | Description | Schema |
+| ---- | ----------- | ------ |
+| 201 | Password has been successfully updated | [UpdatePassword](#UpdatePassword) |
 
 ### /users/token/create/
 
@@ -139,24 +167,7 @@ Updates information about user
 | ---- | ----------- | ------ |
 | 200 |  | [UpdatePersonalInfo](#UpdatePersonalInfo) |
 
-### /users/verify/
 
-#### POST
-##### Description:
-
-Start the user creation process
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ---- |
-| data | body |  | Yes | [VerifyUser](#VerifyUser) |
-
-##### Responses
-
-| Code | Description | Schema |
-| ---- | ----------- | ------ |
-| 201 | Return session id and sends verification code | [VerifyUser](#VerifyUser) |
 
 ### /users/wallets/
 
@@ -399,3 +410,9 @@ Withdrawal of funds from the user's wallet
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
 | name | string |  | No |
+
+# Installation
+Clone the repository
+```
+git clone https://github.com/Spectorisimo/WalletAPI.git
+```
