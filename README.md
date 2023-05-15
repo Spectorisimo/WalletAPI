@@ -34,7 +34,7 @@ Get information about user
 | ---- | ----------- |
 | 200 | Information about user |
 
-### /users/verify/
+### /users/create/
 
 #### POST
 ##### Description:
@@ -53,7 +53,7 @@ Start the user creation process
 | ---- | ----------- | ------ |
 | 201 | Return session id and sends verification code | [VerifyUser](#VerifyUser) |
 
-### /users/create/
+### /users/verify/
 
 #### POST
 ##### Description:
@@ -72,7 +72,7 @@ Finishes the user creation process
 | ---- | ----------- | ------ |
 | 201 | User successfully created | [CreateUser](#CreateUser) |
 
-### /users/password/verify/
+### /users/password/update/
 
 #### PATCH
 ##### Description:
@@ -91,7 +91,7 @@ Starts the user password update process
 | ---- | ----------- | ------ |
 | 200 | Returns session id and sends verification code | [VerifyUser](#VerifyUser) |
 
-### /users/password/update/
+### /users/password/verify/
 
 #### POST
 ##### Description:
@@ -434,10 +434,10 @@ docker compose up
 ```
 Сreate a super user
 ```
-docker compose wallet-project exec python code/manage.py createsuperuser
+docker compose exec wallet-project python code/manage.py createsuperuser
 ```
 Make migrations
 ```
-docker compose wallet-project exec python code/manage.py makemigrations
-docker compose wallet-project exec python code/manage.py migrate
+docker compose exec wallet-project python code/manage.py makemigrations
+docker compose exec wallet-project python code/manage.py migrate
 ```
