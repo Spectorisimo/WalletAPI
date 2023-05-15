@@ -436,10 +436,6 @@ docker compose up
 ```
 docker compose wallet-project exec python code/manage.py createsuperuser
 ```
-Сreate a super user
-```
-docker compose wallet-project exec python code/manage.py createsuperuser
-```
 Make migrations
 ```
 docker compose wallet-project exec python code/manage.py makemigrations
