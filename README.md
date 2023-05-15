@@ -2,7 +2,7 @@
 ![coverage-93%-green](https://github.com/Spectorisimo/WalletAPI/assets/99352497/8214cafc-345d-4f40-bf1e-e91e5799ae76)
 # Description
 I've developed an API for an electronic payment system (P2P transfers through users' electronic wallets) that allows users to make payments.
-I used JWT tokens for user uthentication, which provides a high level of security and data privacy protection. This allows users to securely use the payment system while protecting their personal data and funds.
+I used JWT tokens for user authentication, which provides a high level of security and data privacy protection. This allows users to securely use the payment system while protecting their personal data and funds.
 In addition, I used a clean architecture to break the code into separate layers and make it easier to read and maintain. This allows you to speed up the development process and ensure easy scalability of the project in the future.
 Сelery was used to charge a monthly fee from each wallet.It starts 30 days after wallet creation.
 # ER Model
