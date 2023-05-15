@@ -16,6 +16,18 @@ class WalletRepositoryInterface(Protocol):
 
     @staticmethod
     def create_wallet(data: OrderedDict) -> None:
+        """
+        Creates a new wallet for the user with the given data, and also creates a monthly fee for the wallet.
+
+        Args:
+        - data (OrderedDict): An OrderedDict containing the data for the new wallet. It must include the following keys:
+            - user (User): The User instance associated with the new wallet.
+            - currency (str): The currency code for the new wallet, e.g. "USD", "EUR", "KZT", etc.
+            - name (Decimal): The wallet name.
+
+        Returns:
+        None
+        """
         ...
 
     @staticmethod

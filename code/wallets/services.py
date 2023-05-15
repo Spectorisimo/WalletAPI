@@ -17,6 +17,22 @@ from payments import choices as payments_choices
 class WalletServicesInterface(Protocol):
 
     @staticmethod
+    def create_wallet(self, data: OrderedDict) -> None:
+        """
+        Creates a new wallet for the user with the given data, and also creates a monthly fee for the wallet.
+
+        Args:
+        - data (OrderedDict): An OrderedDict containing the data for the new wallet. It must include the following keys:
+            - user (User): The User instance associated with the new wallet.
+            - currency (str): The currency code for the new wallet, e.g. "USD", "EUR", "KZT", etc.
+            - name (Decimal): The wallet name.
+
+        Returns:
+        None
+        """
+        ...
+
+    @staticmethod
     def get_wallets(user: models.Wallet) -> QuerySet[models.Wallet]:
         """
         Retrieves all wallets belonging to the specified user.
@@ -33,11 +49,17 @@ class WalletServicesInterface(Protocol):
         ...
 
     @staticmethod
-    def create_wallet(self, data: OrderedDict) -> None:
-        ...
-
-    @staticmethod
     def charge_fee(wallet: models.Wallet, fee: models.WalletMonthlyFee) -> None:
+        """
+        Deducts the monthly fee for using the wallet from the wallet balance and records transaction information.
+
+        Args:
+        - wallet (models.Wallet): An instance of the Wallet model representing the user's wallet.
+        - fee (models.WalletMonthlyFee): An instance of the WalletMonthlyFee model representing the monthly fee to be charged.
+
+        Returns:
+        None.
+        """
         ...
 
 
