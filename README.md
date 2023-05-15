@@ -4,6 +4,7 @@
 I've developed an API for an electronic payment system (P2P transfers through users' electronic wallets) that allows users to make payments.
 I used JWT tokens for user uthentication, which provides a high level of security and data privacy protection. This allows users to securely use the payment system while protecting their personal data and funds.
 In addition, I used a clean architecture to break the code into separate layers and make it easier to read and maintain. This allows you to speed up the development process and ensure easy scalability of the project in the future.
+Сelery was used to charge a monthly fee from each wallet.It starts 30 days after wallet creation.
 # ER Model
 ![image](https://github.com/Spectorisimo/WalletAPI/assets/99352497/72b47895-0a6f-4cf6-a7f0-2d01a723b4ec)
 # Features
@@ -415,4 +416,32 @@ Withdrawal of funds from the user's wallet
 Clone the repository
 ```
 git clone https://github.com/Spectorisimo/WalletAPI.git
+```
+Create the .env file for handling environment variables
+```
+SECRET_KEY=YOUR DJANGO SECRET KEY
+
+EMAIL_HOST_USER=YOUR USERNAME FROM SMTP EMAIL
+EMAIL_HOST_PASSWORD=YOUR PASSWORD FROM SMTP EMAIL
+
+DB_NAME=YOUR DATABASE NAME
+DB_USER=YOUR DATABASE USER
+DB_PASSWORD=YOUR DATABASE PASSWORD
+```
+Run Docker
+```
+docker compose up
+```
+Сreate a super user
+```
+docker compose wallet-project exec python code/manage.py createsuperuser
+```
+Сreate a super user
+```
+docker compose wallet-project exec python code/manage.py createsuperuser
+```
+Make migrations
+```
+docker compose wallet-project exec python code/manage.py makemigrations
+docker compose wallet-project exec python code/manage.py migrate
 ```
