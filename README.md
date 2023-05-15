@@ -13,7 +13,7 @@ In addition, I used a clean architecture to break the code into separate layers 
 - Update information about user.
 - Creation of wallets. You can create up to three wallets (One for each type of currency).
 - Operations with wallets (deposit, withdrawal, transfer).When transferring funds between wallets with different types of currencies, funds are automatically transferred from the sender's currency to the recipient's currency, the exchange rate is taken from [here](https://www.exchangerate-api.com/).
-- Automatic collection of fees from the wallet every month (200 KZT).
+- Automatic collection of fees from the wallet every month (200 KZT).If there aren't enough funds on the wallet to withdraw the commission, then this wallet will be blocked until the balance of the wallet is replenished with an amount sufficient to withdraw the commission.
 # API
 
 ### /users/
