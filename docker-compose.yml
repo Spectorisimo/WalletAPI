@@ -24,9 +24,9 @@ services:
     container_name: wallet-project-db
     image: postgres:14
     environment:
-      POSTGRES_DB: DB_NAME
-      POSTGRES_USER: DB_USER
-      POSTGRES_PASSWORD: DB_PASSWORD
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - wallet-project-db-data:/var/lib/postgresql/data
     ports:
