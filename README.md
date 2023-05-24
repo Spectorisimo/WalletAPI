@@ -430,7 +430,7 @@ DB_PASSWORD=YOUR DATABASE PASSWORD
 ```
 Run Docker
 ```
-docker compose up
+docker-compose up --build
 ```
 Сreate a super user
 ```
